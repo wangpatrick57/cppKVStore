@@ -51,7 +51,8 @@ void mutex_crawl(std::string start_url, MutexFetched& mf) {
         std::vector<std::thread> threads;
 
         for (std::string url : res.urls) {
-            threads.emplace_back(mutex_crawl, url, std::ref(mf));
+            std::thread t{mutex_crawl, url, std::ref(mf)};
+            threads.push_back(std::move(t));
         }
 
         for (std::thread& t : threads) {
