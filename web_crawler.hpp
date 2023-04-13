@@ -2,7 +2,6 @@
 #define WEB_CRAWLER_HPP
 
 #include <iostream>
-#include <unistd.h>
 #include <unordered_map>
 #include <vector>
 #include <mutex>
@@ -26,7 +25,8 @@ typedef struct {
 extern std::unordered_map<std::string, FetchResult> const FAKE;
 std::mutex cout_mutex{};
 
-void mutex_crawl(std::string start_url, MutexFetched& mf);
+bool test_and_set(std::string start_url, MutexFetched& mf);
+void mutex_join_crawl(std::string start_url, MutexFetched& mf);
 void serial_crawl(std::string start_url, MutexFetched& mf);
 FetchResult fetch(std::string url);
 
